@@ -12,13 +12,12 @@ export class TodoListService {
 
   async create(data: CreateTodoListDto) {
     try {
-      const todoListModel = await this.todoListModel.create({
+      return this.todoListModel.create({
         duoDate: data.dueDate,
         taskName: data.taskName,
         status: data.status,
         note: data.note,
       });
-      return todoListModel.save();
     } catch (e) {
       console.log(e);
     }
