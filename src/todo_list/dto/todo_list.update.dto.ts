@@ -1,11 +1,11 @@
-import { IsNotEmpty, IsOptional, IsEnum, IsString } from 'class-validator';
+import { IsOptional, IsEnum, IsString } from 'class-validator';
 import { TodoStatus } from '../schemas/todo_list.status.enum';
 
-export class CreateTodoListDto {
-  @IsNotEmpty()
+export class UpdateTodoListDto {
+  @IsOptional()
   taskName: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   dueDate: Date;
 
