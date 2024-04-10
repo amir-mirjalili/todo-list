@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  todo-list_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
+    links:
+      - mongodb
+    environment:
+      - DB=mongodb://mongodb/todo-list
+
+  mongodb:
+    container_name: todo_list-db
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb_data:/data/db
+    restart: unless-stopped
+
+volumes:
+  mongodb_data:
+    driver: local
