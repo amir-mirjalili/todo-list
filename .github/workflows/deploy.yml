@@ -16,5 +16,4 @@ jobs:
       - name: Install dependencies and build app
         run: |
           npm install --force
-          npm run build:all
           ls -l .
