@@ -10,7 +10,6 @@ export class UserRepositoryImpl implements UserRepository {
   ) {}
 
   async save(user: User): Promise<void> {
-    console.log('miad???');
     const newUser = new this.userModel(user);
     await newUser.save();
   }
