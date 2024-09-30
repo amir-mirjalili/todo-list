@@ -12,4 +12,12 @@ export class TodoListDomainService {
     const todoList = new TodoList(title, userId);
     await this.todoListRepository.save(todoList);
   }
+
+  async updateTitle(id: string, title: string): Promise<void> {
+    await this.todoListRepository.editTitle(id, title);
+  }
+
+  async delete(id: string): Promise<void> {
+    await this.todoListRepository.delete(id);
+  }
 }
