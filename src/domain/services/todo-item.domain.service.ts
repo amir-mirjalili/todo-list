@@ -38,4 +38,27 @@ export class TodoItemDomainService {
   async delete(id: string): Promise<void> {
     await this.todoItemRepository.delete(id);
   }
+
+  async prioritize(id: string, priority: number): Promise<void> {
+    const todoItem = await this.todoItemRepository.findById(id);
+    if (!todoItem) {
+      throw new NotFoundException('Todolist not found');
+    }
+    await this.todoItemRepository.updateOnePriority(id, priority);
+    if (todoItem.priority > priority)
+      await this.todoItemRepository.increasePriority(
+        todoItem.todoListId,
+        todoItem.priority,
+        priority,
+        id,
+      );
+    else {
+      await this.todoItemRepository.decreasePriority(
+        todoItem.todoListId,
+        todoItem.priority,
+        priority,
+        id,
+      );
+    }
+  }
 }

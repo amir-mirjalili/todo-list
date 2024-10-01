@@ -21,6 +21,7 @@ import { UpdateTodoItemCommandHandlers } from './application/command-handlers/to
 import { DeleteTodoItemCommandHandlers } from './application/command-handlers/todo-item/delete.todo-item.command-handlers';
 import { TodoItemSchema } from './infrastructure/schemas/todo-item.schema';
 import { TodoItemController } from './interface/controllers/todo-item.controller';
+import { PrioritizeTodoItemCommandHandlers } from './application/command-handlers/todo-item/prioritize.todo-item.command-handlers';
 dotenv.config();
 @Module({
   imports: [
@@ -47,6 +48,7 @@ dotenv.config();
     CreateTodoItemCommandHandlers,
     UpdateTodoItemCommandHandlers,
     DeleteTodoItemCommandHandlers,
+    PrioritizeTodoItemCommandHandlers,
   ],
 })
 export class AppModule {}
