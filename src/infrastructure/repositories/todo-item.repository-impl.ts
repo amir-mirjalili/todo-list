@@ -9,6 +9,7 @@ export class TodoItemRepositoryImpl implements TodoItemRepository {
     @InjectModel('TodoItem')
     private readonly todoItemModel: Model<TodoItemDocument>,
   ) {}
+
   async save(todoItem: TodoItem): Promise<void> {
     await new this.todoItemModel(todoItem).save();
   }
@@ -20,5 +21,12 @@ export class TodoItemRepositoryImpl implements TodoItemRepository {
   }
   async delete(id: string): Promise<void> {
     await this.todoItemModel.deleteOne({ _id: id });
+  }
+
+  async getLastPriority(todoListId: string): Promise<TodoItem> {
+    return this.todoItemModel
+      .findOne({ todoListId })
+      .sort({ priority: -1 })
+      .limit(1);
   }
 }

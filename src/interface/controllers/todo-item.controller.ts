@@ -13,12 +13,7 @@ export class TodoItemController {
   @Post()
   async create(@Body() body: CreateTodoItemDto): Promise<void> {
     return this.commandBus.execute(
-      new CreateTodoItemCommand(
-        body.title,
-        body.description,
-        body.priority,
-        body.todoListId,
-      ),
+      new CreateTodoItemCommand(body.title, body.description, body.todoListId),
     );
   }
 

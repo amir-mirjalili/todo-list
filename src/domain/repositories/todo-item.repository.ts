@@ -4,4 +4,5 @@ export interface TodoItemRepository {
   save(todoItem: TodoItem): Promise<void>;
   edit(id: string, title: string, description: string): Promise<void>;
   delete(id: string): Promise<void>;
+  getLastPriority(todoListId: string): Promise<TodoItem>;
 }

@@ -4,4 +4,5 @@ export interface TodoListRepository {
   save(todoList: TodoList): Promise<void>;
   editTitle(id: string, title: string): Promise<void>;
   delete(id: string): Promise<void>;
+  findById(id: string): Promise<TodoList>;
 }

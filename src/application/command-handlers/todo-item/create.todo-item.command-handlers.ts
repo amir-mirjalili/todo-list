@@ -11,7 +11,6 @@ export class CreateTodoItemCommandHandlers
     await this.todoItemDomainService.create(
       command.title,
       command.description,
-      command.priority,
       command.todoListId,
     );
   }

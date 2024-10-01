@@ -10,6 +10,10 @@ export class TodoListRepositoryImpl implements TodoListRepository {
     private readonly todoListModel: Model<TodoListDocument>,
   ) {}
 
+  async findById(id: string): Promise<TodoList> {
+    return this.todoListModel.findById(id);
+  }
+
   async delete(id: string): Promise<void> {
     await this.todoListModel.deleteOne({ _id: id });
   }

@@ -1,20 +1,33 @@
 import { TodoItemRepository } from '../repositories/todo-item.repository';
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { TodoItem } from '../entities/todo-item.entity';
+import { TodoListRepository } from '../repositories/todo-list.repository';
 
 @Injectable()
 export class TodoItemDomainService {
   constructor(
     @Inject('TodoItemRepository')
     private readonly todoItemRepository: TodoItemRepository,
+    @Inject('TodoListRepository')
+    private readonly todoListRepository: TodoListRepository,
   ) {}
   async create(
     title: string,
     description: string,
-    priority: number,
     todoListId: string,
   ): Promise<void> {
-    const todoItem = new TodoItem(title, description, priority, todoListId);
+    //check todoListExist
+    const todoList = await this.todoListRepository.findById(todoListId);
+    if (!todoList) {
+      throw new NotFoundException('Todolist not found');
+    }
+    const lastItem = await this.todoItemRepository.getLastPriority(todoListId);
+    const todoItem = new TodoItem(
+      title,
+      description,
+      lastItem ? lastItem.priority + 1 : 0,
+      todoListId,
+    );
     await this.todoItemRepository.save(todoItem);
   }
 
