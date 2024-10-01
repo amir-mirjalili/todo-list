@@ -14,6 +14,13 @@ import { CreateTodoListCommandHandlers } from './application/command-handlers/to
 import { TodoListRepositoryImpl } from './infrastructure/repositories/todo-list.repository-impl';
 import { UpdateTodoListCommandHandlers } from './application/command-handlers/todo-list/update.todo-list.command-handlers';
 import { DeleteTodoListCommandHandlers } from './application/command-handlers/todo-list/delete.todo-list.command-handlers';
+import { TodoItemRepositoryImpl } from './infrastructure/repositories/todo-item.repository-impl';
+import { TodoItemDomainService } from './domain/services/todo-item.domain.service';
+import { CreateTodoItemCommandHandlers } from './application/command-handlers/todo-item/create.todo-item.command-handlers';
+import { UpdateTodoItemCommandHandlers } from './application/command-handlers/todo-item/update.todo-item.command-handlers';
+import { DeleteTodoItemCommandHandlers } from './application/command-handlers/todo-item/delete.todo-item.command-handlers';
+import { TodoItemSchema } from './infrastructure/schemas/todo-item.schema';
+import { TodoItemController } from './interface/controllers/todo-item.controller';
 dotenv.config();
 @Module({
   imports: [
@@ -21,19 +28,25 @@ dotenv.config();
     MongooseModule.forFeature([
       { name: 'User', schema: UserSchema },
       { name: 'TodoList', schema: TodoListSchema },
+      { name: 'TodoItem', schema: TodoItemSchema },
     ]),
     CqrsModule,
   ],
-  controllers: [UserController, TodoListController],
+  controllers: [UserController, TodoListController, TodoItemController],
   providers: [
     { provide: 'UserRepository', useClass: UserRepositoryImpl },
     { provide: 'TodoListRepository', useClass: TodoListRepositoryImpl },
+    { provide: 'TodoItemRepository', useClass: TodoItemRepositoryImpl },
     UserDomainService,
     TodoListDomainService,
+    TodoItemDomainService,
     CreateUserCommandHandler,
     CreateTodoListCommandHandlers,
     UpdateTodoListCommandHandlers,
     DeleteTodoListCommandHandlers,
+    CreateTodoItemCommandHandlers,
+    UpdateTodoItemCommandHandlers,
+    DeleteTodoItemCommandHandlers,
   ],
 })
 export class AppModule {}
