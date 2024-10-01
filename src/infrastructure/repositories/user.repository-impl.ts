@@ -9,6 +9,10 @@ export class UserRepositoryImpl implements UserRepository {
     @InjectModel('User') private readonly userModel: Model<UserDocument>,
   ) {}
 
+  async findById(id: string): Promise<User> {
+    return this.userModel.findById(id);
+  }
+
   async save(user: User): Promise<void> {
     const newUser = new this.userModel(user);
     await newUser.save();
